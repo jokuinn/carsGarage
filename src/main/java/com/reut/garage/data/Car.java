@@ -1,5 +1,7 @@
 package com.reut.garage.data;
 
+import java.util.Objects;
+
 public abstract class Car {
     private final String brand;
     private final String model;
@@ -36,4 +38,20 @@ public abstract class Car {
         return transmissionType;
     }
 
+    @Override
+    public int hashCode() {
+        int result = engineType.hashCode();
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Car car = (Car) obj;
+        if (!Objects.equals(model, car.model)) return false;
+        return Objects.equals(engineType, car.engineType);
+    }
 }
